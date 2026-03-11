@@ -1,0 +1,796 @@
+
+/* ================================================================
+STYLE.CSS — External Stylesheet for Multimedia Demo Page
+================================================================
+This file is LINKED to index.html via:
+<link rel="stylesheet" href="styles.css">
+
+CSS = Cascading Style Sheets
+- "Cascading" means styles FLOW DOWN and can be overridden.
+- Styles applied to parent elements are INHERITED by children.
+- More SPECIFIC selectors override less specific ones.
+
+This stylesheet follows an Apple-inspired design:
+- Clean, minimal layout with generous whitespace
+- System font stack (San Francisco on Apple devices)
+- Subtle animations and smooth transitions
+- Dark/neutral color palette with high contrast
+================================================================ */
+
+
+/* ================================================================
+CSS CUSTOM PROPERTIES (VARIABLES)
+================================================================
+Declared inside :root so they are available EVERYWHERE.
+
+:root targets the <html> element — the highest level.
+var(--name) is how you USE a custom property.
+
+WHY USE VARIABLES?
+- Change a color in ONE place, it updates everywhere.
+- Makes the design consistent and easy to maintain.
+- Like constants in programming.
+================================================================ */
+:root {
+--color-bg: #000000; /* Page background — pure black like Apple */
+--color-surface: #1d1d1f; /* Card/section background — dark gray */
+--color-text: #f5f5f7; /* Primary text — near-white */
+--color-text-muted: #86868b; /* Secondary/muted text — Apple gray */
+--color-accent: #2997ff; /* Links and highlights — Apple blue */
+--color-border: #424245; /* Subtle borders */
+--font-main: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+/*
+FONT STACK explained:
+The browser tries each font left-to-right, using the first one installed:
+-apple-system → San Francisco on macOS/iOS (Apple's system font)
+BlinkMacSystemFont → San Francisco on Chrome for macOS
+'Segoe UI' → Windows system font
+Roboto → Android system font
+Helvetica, Arial → Common fallbacks
+sans-serif → Ultimate fallback: any sans-serif font
+*/
+--max-width: 980px; /* Maximum content width — keeps text readable */
+--spacing-sm: 1rem; /* 16px — small spacing unit */
+--spacing-md: 2rem; /* 32px — medium spacing */
+--spacing-lg: 4rem; /* 64px — large spacing */
+--spacing-xl: 6rem; /* 96px — extra large spacing */
+--radius: 18px; /* Border radius for rounded corners */
+--transition: 0.3s ease; /* Default transition timing for animations */
+}
+
+
+/* ================================================================
+CSS RESET / BOX MODEL FIX
+================================================================
+* (universal selector) targets EVERY element on the page.
+
+box-sizing: border-box
+→ Makes width/height INCLUDE padding and border.
+→ Without this, a 300px box + 20px padding = 340px total (confusing!).
+→ With border-box, 300px means 300px TOTAL. Much easier to work with.
+
+margin: 0; padding: 0;
+→ Removes default spacing browsers add to elements.
+→ Gives us a clean slate to add our own spacing.
+================================================================ */
+*,
+*::before,
+*::after {
+/*
+*::before and *::after target PSEUDO-ELEMENTS.
+::before creates content BEFORE an element's content.
+::after creates content AFTER an element's content.
+We reset these too so the box model is consistent everywhere.
+*/
+margin: 0;
+padding: 0;
+box-sizing: border-box;
+}
+
+
+/* ================================================================
+HTML & BODY — Base page styles
+================================================================ */
+html {
+scroll-behavior: smooth;
+/*
+scroll-behavior: smooth
+→ When clicking anchor links (like href="#video-section"),
+the page SMOOTHLY scrolls instead of jumping instantly.
+→ This applies to ALL scroll-based navigation on the page.
+*/
+}
+
+body {
+font-family: var(--font-main);
+/*
+font-family sets the TYPEFACE for all text.
+var(--font-main) pulls the value from our CSS variable above.
+*/
+
+background-color: var(--color-bg);
+/* background-color fills the entire page background */
+
+color: var(--color-text);
+/*
+color sets the DEFAULT TEXT COLOR for the page.
+Child elements inherit this unless overridden.
+*/
+
+line-height: 1.6;
+/*
+line-height sets the VERTICAL SPACE between lines of text.
+1.6 means 1.6× the font size (e.g., 16px font → 25.6px line height).
+Unitless values are preferred — they scale with font size.
+1.5–1.8 is ideal for readability.
+*/
+
+-webkit-font-smoothing: antialiased;
+/*
+Makes text rendering smoother on macOS/iOS (WebKit browsers).
+Reduces "jagged" edges on text. Apple uses this on their site.
+The -webkit- prefix means it only works in WebKit/Blink browsers.
+*/
+
+overflow-x: hidden;
+/*
+overflow-x: hidden
+→ Hides any content that extends HORIZONTALLY beyond the viewport.
+→ Prevents unwanted horizontal scrollbars.
+→ overflow-x = horizontal, overflow-y = vertical.
+*/
+}
+
+
+/* ================================================================
+LINKS — Global anchor <a> styling
+================================================================ */
+a {
+color: var(--color-accent);
+/* Apple blue for all links */
+
+text-decoration: none;
+/*
+text-decoration: none
+→ Removes the DEFAULT UNDERLINE on links.
+→ We will add our own underline effect on hover instead.
+*/
+
+transition: opacity var(--transition);
+/*
+transition creates SMOOTH ANIMATIONS between states.
+
+Format: transition: property duration timing-function;
+
+opacity → The CSS property to animate.
+var(--transition) → 0.3s ease (from our variable).
+0.3s → Animation takes 0.3 seconds.
+ease → Starts slow, speeds up, then slows down.
+
+Other timing functions: linear, ease-in, ease-out, ease-in-out.
+*/
+}
+
+a:hover {
+/*
+:hover is a PSEUDO-CLASS — it applies styles when the
+user moves their mouse cursor OVER the element.
+
+Other useful pseudo-classes:
+:focus → When element is focused (keyboard navigation)
+:active → When element is being clicked
+:visited → For links that have been clicked before
+*/
+opacity: 0.7;
+/* Reduces opacity to 70% on hover — a subtle Apple-style effect */
+}
+
+
+/* ================================================================
+HEADER & NAVIGATION
+================================================================
+position: fixed → The header stays at the top when scrolling.
+z-index → Controls stacking order (higher = on top).
+backdrop-filter → Frosted glass effect (Apple's signature look).
+================================================================ */
+header {
+position: fixed;
+/*
+position: fixed
+→ Removes the element from normal document flow.
+→ Positions it relative to the VIEWPORT (browser window).
+→ It stays in place even when the user scrolls.
+→ Must set top, left, etc. to position it.
+
+Other position values:
+static → Default. Normal flow, ignores top/left/right/bottom.
+relative → Normal flow, but can be nudged with top/left.
+absolute → Removed from flow, positioned relative to nearest positioned ancestor.
+sticky → Normal flow until it reaches a scroll point, then "sticks."
+*/
+
+top: 0;
+/* Pins the header to the TOP of the viewport */
+
+left: 0;
+/* Pins to the LEFT edge */
+
+width: 100%;
+/* Stretches across the full viewport width */
+
+z-index: 1000;
+/*
+z-index controls STACKING ORDER of overlapping elements.
+Higher numbers appear ON TOP of lower numbers.
+Only works on positioned elements (not position: static).
+1000 ensures the nav stays above all other content.
+*/
+
+background-color: rgba(0, 0, 0, 0.8);
+/*
+rgba() defines a color with TRANSPARENCY.
+Format: rgba(red, green, blue, alpha)
+- Red, Green, Blue: 0–255
+- Alpha: 0 (invisible) to 1 (fully opaque)
+0.8 = 80% opaque, so content behind slightly shows through.
+*/
+
+backdrop-filter: saturate(180%) blur(20px);
+/*
+backdrop-filter applies effects to the area BEHIND the element.
+
+saturate(180%) → Increases color saturation of background by 180%.
+blur(20px) → Blurs the background by 20 pixels.
+
+Together, these create Apple's famous "frosted glass" effect.
+The navbar looks like frosted glass over the page content.
+*/
+
+border-bottom: 1px solid var(--color-border);
+/*
+border-bottom adds a line at the BOTTOM of the element.
+Format: width style color
+1px → 1 pixel thick
+solid → Solid line (other options: dashed, dotted, double, none)
+var(--color-border) → Uses our custom dark gray color
+*/
+}
+
+.nav-container {
+max-width: var(--max-width);
+/*
+max-width sets the MAXIMUM width an element can grow to.
+The element can be smaller, but never wider than this value.
+Content stays readable and doesn't stretch on large screens.
+*/
+
+margin: 0 auto;
+/*
+margin: 0 auto
+→ Shorthand: 0 on top/bottom, auto on left/right.
+→ "auto" on left AND right CENTERS the element horizontally.
+→ This is the classic way to center a block element.
+*/
+
+padding: 0 var(--spacing-sm);
+/* Shorthand: 0 top/bottom, 1rem left/right padding */
+
+display: flex;
+/*
+display: flex activates FLEXBOX layout.
+Flexbox arranges child elements in a row (default) or column.
+It makes alignment, spacing, and responsive layout MUCH easier.
+*/
+
+justify-content: space-between;
+/*
+justify-content aligns items along the MAIN AXIS (horizontal by default).
+space-between → First item at the start, last item at the end,
+equal space between all items.
+
+Other values:
+flex-start → All items at the start
+flex-end → All items at the end
+center → All items centered
+space-around → Equal space around each item
+space-evenly → Perfectly even spaces
+*/
+
+align-items: center;
+/*
+align-items aligns items along the CROSS AXIS (vertical by default).
+center → Vertically centers all items in the container.
+
+Other values: flex-start (top), flex-end (bottom), stretch (fill height)
+*/
+
+height: 48px;
+/* Fixed height for the navigation bar — compact like Apple's nav */
+}
+
+.logo {
+font-size: 1.25rem;
+/*
+rem = "root em" — relative to the ROOT (<html>) font size.
+Default root font size is 16px, so:
+1rem = 16px
+1.25rem = 20px
+2rem = 32px
+rem is preferred over px because it scales with user font settings.
+*/
+
+font-weight: 600;
+/*
+font-weight controls text THICKNESS.
+100 = Thin, 400 = Normal, 600 = Semi-Bold, 700 = Bold, 900 = Black
+*/
+
+color: var(--color-text);
+letter-spacing: -0.02em;
+/*
+letter-spacing adjusts SPACE BETWEEN LETTERS.
+Negative values bring letters closer together (tighter).
+em units are relative to the current font size.
+Tight letter-spacing is a hallmark of Apple typography.
+*/
+}
+
+.nav-links {
+display: flex;
+gap: var(--spacing-md);
+/*
+gap sets the SPACE BETWEEN flex items.
+Replaces the need for margins on individual items.
+gap: 2rem puts 32px between each nav link.
+*/
+
+list-style: none;
+/*
+list-style: none removes BULLET POINTS from <ul> lists.
+By default, <ul> shows disc bullets. We remove them for nav styling.
+*/
+}
+
+.nav-links a {
+/*
+DESCENDANT SELECTOR: ".nav-links a" targets all <a> elements
+that are INSIDE an element with class="nav-links".
+This is more specific than just "a", so it overrides the global link styles.
+*/
+
+color: var(--color-text-muted);
+font-size: 0.875rem;
+/* 0.875rem = 14px — small text for nav links */
+
+font-weight: 400;
+transition: color var(--transition);
+/* Animate the color change (not opacity) on hover */
+}
+
+.nav-links a:hover {
+color: var(--color-text);
+/* Nav links brighten to white on hover */
+}
+
+
+/* ================================================================
+HERO SECTION — Full-width introductory banner
+================================================================ */
+.hero {
+padding-top: calc(48px + var(--spacing-xl));
+/*
+calc() lets you do MATH in CSS.
+48px (nav height) + 6rem (spacing) = total top padding.
+This pushes content below the fixed navbar.
+You can mix units: px + rem + % + vw, etc.
+*/
+
+padding-bottom: var(--spacing-xl);
+text-align: center;
+/*
+text-align: center
+→ Centers INLINE and INLINE-BLOCK content horizontally.
+→ Affects text, images, and inline elements inside this container.
+→ Does NOT center block-level elements (use margin: auto for those).
+*/
+}
+
+.hero h1 {
+font-size: clamp(2.5rem, 8vw, 5rem);
+/*
+clamp(min, preferred, max) — a RESPONSIVE function.
+- Minimum: 2.5rem (40px) — never smaller than this
+- Preferred: 8vw — 8% of viewport width (scales with screen)
+- Maximum: 5rem (80px) — never larger than this
+
+vw = viewport width units. 1vw = 1% of the browser window width.
+This creates fluid typography that scales smoothly.
+*/
+
+font-weight: 700;
+letter-spacing: -0.04em;
+/* Tight letter-spacing for the large headline — very Apple */
+
+line-height: 1.1;
+/* Tight line height for headings (1.1× font size) */
+
+margin-bottom: var(--spacing-sm);
+
+background: linear-gradient(135deg, #ffffff 0%, #86868b 100%);
+/*
+linear-gradient() creates a GRADIENT (color transition).
+135deg → Angle of the gradient (diagonal, top-left to bottom-right).
+#ffffff 0% → Starts white at 0% of the gradient.
+#86868b 100% → Ends gray at 100%.
+*/
+
+-webkit-background-clip: text;
+background-clip: text;
+/*
+background-clip: text
+→ Clips the gradient background to ONLY show through the text.
+→ The background becomes a text fill color.
+→ Creates a gradient text effect (white to gray fade).
+→ -webkit- prefix needed for Safari/Chrome compatibility.
+*/
+
+-webkit-text-fill-color: transparent;
+/*
+Makes the text fill TRANSPARENT so the gradient background shows through.
+Works with background-clip: text to create gradient text.
+*/
+}
+
+.hero-subtitle {
+font-size: clamp(1.1rem, 3vw, 1.5rem);
+color: var(--color-text-muted);
+font-weight: 400;
+letter-spacing: 0.02em;
+/* Slightly expanded letter-spacing for the subtitle — contrast with h1 */
+}
+
+
+/* ================================================================
+MEDIA SECTIONS — Shared styles for all three content sections
+================================================================ */
+.media-section {
+max-width: var(--max-width);
+margin: 0 auto;
+/* Centers the section horizontally */
+
+padding: var(--spacing-xl) var(--spacing-sm);
+/* Shorthand: top/bottom = 6rem, left/right = 1rem */
+
+border-top: 1px solid var(--color-border);
+/* Thin line separating sections */
+}
+
+.section-label {
+color: var(--color-text-muted);
+font-weight: 600;
+letter-spacing: 0.1em;
+/* Wide letter-spacing for the small label — stylistic choice */
+
+text-transform: uppercase;
+/*
+text-transform: uppercase
+→ Displays ALL text as UPPERCASE regardless of how it is typed in HTML.
+→ Other values: lowercase, capitalize (first letter of each word), none.
+*/
+
+margin-bottom: var(--spacing-sm);
+}
+
+.media-section h2 {
+font-size: clamp(1.75rem, 5vw, 3rem);
+font-weight: 700;
+letter-spacing: -0.03em;
+margin-bottom: var(--spacing-md);
+line-height: 1.15;
+}
+
+
+/* ================================================================
+MEDIA FIGURE — The container for images, videos, and audio
+================================================================ */
+.media-figure {
+background-color: var(--color-surface);
+border-radius: var(--radius);
+/*
+border-radius rounds the CORNERS of an element.
+18px gives a noticeable rounded rectangle (Apple style).
+Use 50% for a perfect circle on a square element.
+*/
+
+overflow: hidden;
+/*
+overflow: hidden
+→ Hides any content that extends beyond the element's boundaries.
+→ Combined with border-radius, this clips the image/video corners
+so they follow the rounded shape of the container.
+→ Without this, media would have square corners poking out.
+*/
+
+transition: transform var(--transition);
+/* Animates the scale effect on hover (below) */
+}
+
+.media-figure:hover {
+transform: scale(1.01);
+/*
+transform: scale() resizes an element VISUALLY.
+scale(1.01) = 101% of original size (very subtle zoom).
+This does NOT change the element's space in the layout.
+Combined with transition, it creates a smooth hover zoom.
+*/
+}
+
+
+/* ================================================================
+IMAGE STYLING
+================================================================ */
+.media-figure img {
+width: 100%;
+/* Image fills the full width of its container */
+
+height: auto;
+/* Height adjusts proportionally to maintain aspect ratio */
+
+display: block;
+/*
+display: block
+→ Makes the image a BLOCK-LEVEL element.
+→ By default, <img> is inline, which adds a tiny gap below it
+(because inline elements sit on the text baseline).
+→ display: block removes that gap.
+*/
+}
+
+
+/* ================================================================
+VIDEO STYLING
+================================================================ */
+.media-figure video {
+width: 100%;
+display: block;
+background-color: #000;
+/* Black background shows while the video is loading */
+}
+
+
+/* ================================================================
+AUDIO STYLING
+================================================================ */
+.media-figure audio {
+width: 100%;
+display: block;
+margin: var(--spacing-md);
+/*
+margin adds space OUTSIDE the element.
+This pushes the audio player away from the container edges.
+*/
+
+width: calc(100% - var(--spacing-lg));
+/*
+calc() again — subtracts the margin space from 100% width
+so the audio player fits neatly inside the container.
+*/
+}
+
+
+/* ================================================================
+FIGCAPTION — Caption text below media elements
+================================================================ */
+figcaption {
+padding: var(--spacing-sm) var(--spacing-md);
+/* Padding INSIDE the element — creates inner spacing */
+
+font-size: 0.875rem;
+color: var(--color-text-muted);
+line-height: 1.6;
+}
+
+
+/* ================================================================
+FOOTER
+================================================================ */
+footer {
+border-top: 1px solid var(--color-border);
+padding: var(--spacing-lg) var(--spacing-sm);
+margin-top: var(--spacing-lg);
+text-align: center;
+}
+
+.footer-content {
+max-width: var(--max-width);
+margin: 0 auto;
+}
+
+.footer-brand {
+font-size: 1.5rem;
+font-weight: 700;
+letter-spacing: -0.02em;
+margin-bottom: var(--spacing-sm);
+}
+
+.footer-copy {
+font-size: 0.8rem;
+color: var(--color-text-muted);
+margin-bottom: 0.5rem;
+}
+
+.footer-note {
+font-size: 0.75rem;
+color: var(--color-text-muted);
+}
+
+footer abbr {
+text-decoration: none;
+/*
+By default, <abbr> with a title attribute shows a dotted underline.
+We remove it for a cleaner look but keep the tooltip functionality.
+*/
+
+cursor: help;
+/*
+cursor: help shows a QUESTION MARK CURSOR on hover.
+This signals to users that they can hover for more info.
+Other cursor values: pointer (hand), default (arrow), text (I-beam), etc.
+*/
+
+border-bottom: 1px dotted var(--color-text-muted);
+/* Subtle dotted underline as a visual hint — more controlled than text-decoration */
+}
+
+
+/* ================================================================
+RESPONSIVE DESIGN — MEDIA QUERIES
+================================================================
+Media queries apply styles ONLY when certain conditions are met.
+
+@media (max-width: 768px) means:
+"Apply these styles when the viewport is 768px wide or LESS."
+
+Common breakpoints:
+320px — Small phones
+480px — Large phones
+768px — Tablets (portrait)
+1024px — Tablets (landscape) / small laptops
+1200px — Desktops
+
+Mobile-first approach: Start with mobile styles, then use
+min-width queries to ADD styles for larger screens.
+We are using max-width here (desktop-first) for clarity.
+================================================================ */
+
+@media (max-width: 768px) {
+/*
+TABLET AND MOBILE STYLES
+These rules OVERRIDE the desktop styles above
+when the screen is 768px or narrower.
+*/
+
+.nav-links {
+gap: var(--spacing-sm);
+/* Reduce space between nav links on smaller screens */
+}
+
+.hero {
+padding-top: calc(48px + var(--spacing-lg));
+padding-bottom: var(--spacing-lg);
+/* Less vertical padding on mobile */
+}
+
+.media-section {
+padding: var(--spacing-lg) var(--spacing-sm);
+/* Reduce section padding on mobile */
+}
+
+.media-figure audio {
+margin: var(--spacing-sm);
+width: calc(100% - var(--spacing-md));
+/* Adjust audio player margins for smaller screens */
+}
+
+figcaption {
+padding: var(--spacing-sm);
+/* Equal padding on all sides for mobile */
+}
+}
+
+@media (max-width: 480px) {
+/*
+SMALL PHONE STYLES
+Further adjustments for very small screens.
+*/
+
+.nav-container {
+padding: 0 0.75rem;
+}
+
+.nav-links {
+gap: 0.75rem;
+}
+
+.nav-links a {
+font-size: 0.8rem;
+/* Slightly smaller nav text on phones */
+}
+
+.hero h1 {
+letter-spacing: -0.02em;
+/* Less tight tracking on small screens for readability */
+}
+
+.media-figure {
+border-radius: 12px;
+/* Slightly less rounded corners on small screens */
+}
+}
+
+
+/* ================================================================
+ACCESSIBILITY — Reduced Motion Preference
+================================================================
+Some users have motion sensitivity (vestibular disorders).
+They can enable "Reduce Motion" in their OS settings.
+
+prefers-reduced-motion: reduce
+→ Detects when the user has requested less animation.
+→ We remove transitions and transforms for these users.
+
+This is an important ACCESSIBILITY feature.
+================================================================ */
+@media (prefers-reduced-motion: reduce) {
+*,
+*::before,
+*::after {
+transition: none !important;
+/*
+!important overrides ALL other transition declarations.
+Use !important sparingly — here it is justified because
+accessibility preferences should override all design choices.
+*/
+
+animation: none !important;
+/* Also disables any CSS animations */
+}
+
+html {
+scroll-behavior: auto;
+/* Removes smooth scrolling — instant jumps instead */
+}
+
+.media-figure:hover {
+transform: none;
+/* Removes the hover zoom effect */
+}
+}
+
+
+/* ================================================================
+FOCUS STYLES — Keyboard Navigation Accessibility
+================================================================
+:focus-visible applies styles when an element is focused
+via KEYBOARD (Tab key), but NOT when clicked with a mouse.
+
+This helps keyboard-only users see where they are on the page.
+The outline is a visible ring around the focused element.
+================================================================ */
+a:focus-visible,
+video:focus-visible,
+audio:focus-visible {
+outline: 2px solid var(--color-accent);
+/*
+outline draws a line AROUND an element (outside the border).
+Unlike border, outline does NOT affect layout or element size.
+2px solid blue makes it clearly visible for keyboard users.
+*/
+
+outline-offset: 4px;
+/*
+outline-offset adds SPACE between the element and its outline.
+4px pushes the outline ring away from the element slightly,
+making it more visible and aesthetically pleasing.
+*/
+}
