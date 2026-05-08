@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ITE 270 — GitHub Classroom Guide</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+      line-height: 1.7;
+      color: #1a1a1a;
+      background: #ffffff;
+    }
+
+    /* ===== BANNER ===== */
+    .banner {
+      background: linear-gradient(135deg, #1a2a4a, #2d4a7a);
+      color: #ffffff;
+      padding: 2.5rem 2rem 2rem;
+      text-align: center;
+    }
+    .banner p { font-size: 0.95rem; color: #c8d6e5; margin-top: 0.25rem; }
+
+    .container { max-width: 900px; margin: 0 auto; padding: 2rem 1.5rem; }
+
+    /* ===== HEADINGS ===== */
+    h1 { font-size: 2rem; margin-bottom: 0.25rem; }
+    h2 {
+      font-size: 1.45rem;
+      color: #1a2a4a;
+      border-bottom: 3px solid #1a2a4a;
+      padding-bottom: 0.35rem;
+      margin: 2.25rem 0 1rem;
+    }
+    h2:first-child { margin-top: 0; }
+    h3 { font-size: 1.15rem; color: #333333; margin: 1.5rem 0 0.75rem; }
+
+    p { margin-bottom: 0.85rem; }
+    ol, ul { margin: 0.5rem 0 1rem 1.75rem; }
+    li { margin-bottom: 0.5rem; }
+
+    /* ===== CALLOUTS ===== */
+    .callout {
+      background: #fff3cd;
+      border-left: 5px solid #c9960c;
+      padding: 1rem 1.25rem;
+      border-radius: 6px;
+      margin: 1.5rem 0;
+    }
+    .callout strong { color: #664d03; }
+
+    .callout-blue {
+      background: #e8eefb;
+      border-left: 5px solid #1a4ec1;
+      padding: 1rem 1.25rem;
+      border-radius: 6px;
+      margin: 1.5rem 0;
+    }
+    .callout-blue strong { color: #0f3a8f; }
+
+    .callout-green {
+      background: #e6f7ec;
+      border-left: 5px solid #1a6e3f;
+      padding: 1rem 1.25rem;
+      border-radius: 6px;
+      margin: 1.5rem 0;
+    }
+    .callout-green strong { color: #0d4f2b; }
+
+    /* ===== STEP HEADINGS ===== */
+    .step-heading {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin: 2rem 0 0.75rem;
+    }
+    .step-num {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 36px;
+      height: 36px;
+      background: #1a2a4a;
+      color: #ffffff;
+      border-radius: 50%;
+      font-weight: 700;
+      font-size: 1rem;
+      flex-shrink: 0;
+    }
+    .step-heading h3 { margin: 0; }
+
+    /* ===== CODE ===== */
+    code { font-family: Consolas, "Courier New", monospace; }
+    p code, li code {
+      background: #eef1f5;
+      padding: 0.15rem 0.4rem;
+      border-radius: 4px;
+      font-size: 0.92em;
+    }
+
+    /* ===== LINKS ===== */
+    a { color: #0d4fa3; text-decoration: underline; }
+    a:hover, a:focus-visible { color: #08306b; outline: 2px solid #08306b; outline-offset: 2px; }
+
+    /* ===== ASSIGNMENT LINK CARD ===== */
+    .assignment-card {
+      background: #f0f4f8;
+      border: 2px solid #1a4ec1;
+      border-radius: 12px;
+      padding: 1.5rem 2rem;
+      text-align: center;
+      margin: 1.5rem 0;
+    }
+    .assignment-card p { margin: 0 0 0.75rem; font-size: 1rem; color: #333; }
+    .assignment-card .btn {
+      display: inline-block;
+      background: #1a4ec1;
+      color: #ffffff;
+      padding: 0.75rem 2rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 1rem;
+      transition: background 0.2s;
+    }
+    .assignment-card .btn:hover, .assignment-card .btn:focus-visible {
+      background: #0f3a8f;
+      color: #ffffff;
+      outline: 3px solid #08306b;
+      outline-offset: 2px;
+    }
+
+    /* ===== SCREENSHOT PLACEHOLDER ===== */
+    .screenshot-placeholder {
+      background: #f9fafb;
+      border: 2px dashed #ccc;
+      border-radius: 8px;
+      padding: 1.25rem;
+      text-align: center;
+      margin: 1rem 0 1.5rem;
+      color: #666;
+      font-size: 0.9rem;
+    }
+
+    footer {
+      background: #1a2a4a;
+      color: #c8d6e5;
+      text-align: center;
+      padding: 1.25rem;
+      margin-top: 3rem;
+      font-size: 0.9rem;
+    }
+
+    @media print {
+      .banner { background: #ffffff; color: #1a1a1a; border-bottom: 2px solid #1a1a1a; }
+      a { color: #1a1a1a; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="banner">
+    <h1>GitHub Classroom Guide</h1>
+    <p>ITE 270 — Advanced Web Design</p>
+  </header>
+
+  <main class="container">
+
+    <p>This guide walks you through everything you need to get started with GitHub Classroom for this course. You will learn how to create a free GitHub account, accept assignments, download your files, and upload your completed work — all from the browser. No command line or Git software is required.</p>
+
+    <!-- =============== GITHUB ACCOUNT =============== -->
+    <h2>Create a Free GitHub Account</h2>
+    <p>If you do not already have a GitHub account, start here:</p>
+    <ol>
+      <li>Go to <a href="https://github.com/">github.com</a>.</li>
+      <li>Click <strong>"Sign up"</strong> in the top-right corner.</li>
+      <li>Enter your email address, create a password, and choose a username. Use something professional — this may appear on your resume someday (example: <code>jane-doe-dev</code> or <code>jdoe2026</code>).</li>
+      <li>Complete the verification steps and confirm your email.</li>
+    </ol>
+
+    <div class="callout" role="note">
+      <strong>Already have an account?</strong>
+      <p style="margin-top:0.5rem;">If you already have a GitHub account from a previous class or personal use, you do not need to create a new one. Just make sure you remember your login credentials.</p>
+    </div>
+
+    <!-- =============== STUDENT DEVELOPER PACK =============== -->
+    <h2>Get the GitHub Student Developer Pack (Highly Recommended)</h2>
+    <p>GitHub offers a free <a href="https://education.github.com/pack">Student Developer Pack</a> that gives you access to premium features at no cost. This is optional but <strong>strongly encouraged</strong> — it takes about five minutes to apply and the benefits are significant.</p>
+
+    <h3>What You Get</h3>
+    <ul>
+      <li><strong>Unlimited private repositories</strong> — keep your coursework private so only you and the professor can see it.</li>
+      <li><strong>GitHub Copilot</strong> — AI-powered code suggestions (free for students).</li>
+      <li><strong>Free domain names</strong> — from Namecheap (.me domain) and other providers.</li>
+      <li><strong>Cloud credits</strong> — from Azure, DigitalOcean, and other hosting platforms.</li>
+      <li><strong>Developer tools</strong> — JetBrains IDEs, GitKraken, and dozens of other professional tools at no cost.</li>
+    </ul>
+
+    <h3>How to Apply</h3>
+    <ol>
+      <li>Go to <a href="https://education.github.com/pack">education.github.com/pack</a>.</li>
+      <li>Click <strong>"Get your Pack"</strong> or <strong>"Sign up for Global Campus"</strong>.</li>
+      <li>Sign in with your GitHub account.</li>
+      <li>Select <strong>"Student"</strong> and choose your school (search for your college name).</li>
+      <li>For proof of enrollment, upload a <strong>copy of your class schedule</strong> — a screenshot or PDF of your current semester schedule is all you need.</li>
+      <li>Submit the application. Approval usually takes a few minutes to a few days.</li>
+    </ol>
+
+    <div class="callout-green" role="note">
+      <strong>Why should I do this?</strong>
+      <p style="margin-top:0.5rem;">With the Student Developer Pack, your repositories stay <strong>private by default</strong> — only you and the professor can see your code while you are building it. You also get free access to professional tools that would normally cost hundreds of dollars per year. All you need is a copy of your class schedule as proof. It is absolutely worth the five minutes to sign up.</p>
+    </div>
+
+    <!-- =============== ACCEPT ASSIGNMENT =============== -->
+    <h2>Accept the GitHub Classroom Assignment</h2>
+    <p>GitHub Classroom automatically creates a personal repository for you when you accept an assignment. You do not need to create your own repository — it is done for you.</p>
+
+    <div class="assignment-card">
+      <p><strong>ITE 270 — Accept Your Assignment</strong></p>
+      <a href="https://classroom.github.com/a/Ty2H1nwy" class="btn">Accept Assignment on GitHub Classroom</a>
+    </div>
+
+    <div class="step-heading">
+      <span class="step-num" aria-hidden="true">1</span>
+      <h3>Click the Assignment Link</h3>
+    </div>
+    <ol>
+      <li>Click the assignment link above (or the link posted in Canvas).</li>
+      <li>If you are not already signed in to GitHub, you will be prompted to sign in.</li>
+      <li>You may be asked to select your name from a class roster — find and click your name to link your GitHub account to the course.</li>
+      <li>Click <strong>"Accept this assignment"</strong>.</li>
+      <li>Wait a few seconds — GitHub will create your personal repository. You will see a confirmation page with a link to your new repo.</li>
+    </ol>
+
+    <div class="step-heading">
+      <span class="step-num" aria-hidden="true">2</span>
+      <h3>Open Your Repository</h3>
+    </div>
+    <ol>
+      <li>Click the link to your new repository (it will look something like <code>github.com/YOUR-ORG/assignment-name-your-username</code>).</li>
+      <li>You should see the assignment files already in the repository — this is your personal copy to work with.</li>
+      <li>Bookmark this page. You will come back to it every time you need to upload or check your work.</li>
+    </ol>
+
+    <!-- =============== DOWNLOAD FILES =============== -->
+    <h2>Download Your Files</h2>
+    <p>To work on the assignment on your computer, download the files from your repository:</p>
+
+    <div class="step-heading">
+      <span class="step-num" aria-hidden="true">3</span>
+      <h3>Download as ZIP</h3>
+    </div>
+    <ol>
+      <li>On your repository page, click the green <strong>"&lt;&gt; Code"</strong> button near the top of the file list.</li>
+      <li>Click <strong>"Download ZIP"</strong>.</li>
+      <li>Find the downloaded <code>.zip</code> file on your computer (usually in your Downloads folder).
+        <ul>
+          <li><strong>Windows:</strong> Right-click the <code>.zip</code> file and choose <strong>"Extract All…"</strong>. Then move the extracted folder to your <strong>Documents</strong> or <strong>Desktop</strong> so you are not working inside the Downloads folder. <strong>Important:</strong> After extracting, make sure you do not have a folder inside a folder. If you see something like <code>my-project &gt; my-project &gt; index.html</code>, move the inner contents up one level so <code>index.html</code> is directly inside your project folder.</li>
+          <li><strong>Mac:</strong> Double-click the <code>.zip</code> file to extract it automatically, then move the extracted folder to your <strong>Documents</strong> or <strong>Desktop</strong>.</li>
+        </ul>
+      </li>
+      <li>Open the extracted project folder in <strong>Visual Studio Code</strong>. Make sure you can see your project files (like <code>index.html</code>) at the top level of the file list — if they are nested inside another folder, you opened the wrong level.</li>
+    </ol>
+
+    <div class="callout" role="note">
+      <strong>Avoid the folder-in-a-folder problem.</strong>
+      <p style="margin-top:0.5rem;">When Windows extracts a ZIP file, it often creates a wrapper folder with the same name. You end up with <code>Desktop &gt; my-project &gt; my-project &gt; index.html</code> instead of <code>Desktop &gt; my-project &gt; index.html</code>. If this happens, open the inner folder, select all the files, and move them up one level. Then delete the empty outer folder. In VS Code, your file tree should show your project files directly — not a single folder containing everything.</p>
+    </div>
+
+    <!-- =============== UPLOAD FILES =============== -->
+    <h2>Upload Your Completed Work to GitHub</h2>
+    <p>When you are ready to submit your work (or save your progress), upload your files back to GitHub directly through the browser. No Git commands or software needed.</p>
+
+    <div class="step-heading">
+      <span class="step-num" aria-hidden="true">4</span>
+      <h3>Upload Files Through the Browser</h3>
+    </div>
+    <ol>
+      <li>Go to your repository page on GitHub (the one that was created when you accepted the assignment).</li>
+      <li>Click <strong>"Add file"</strong> in the top-right area of the file list.</li>
+      <li>Choose <strong>"Upload files"</strong> from the dropdown menu.</li>
+      <li>You will see a large drag-and-drop area. You have two options:
+        <ul>
+          <li><strong>Drag and drop:</strong> Open the project folder on your computer and drag all your files and folders directly into the browser upload area.</li>
+          <li><strong>Browse:</strong> Click <strong>"choose your files"</strong> and select the files you want to upload.</li>
+        </ul>
+      </li>
+      <li>Wait for all files to finish uploading (you will see a progress bar and file names appear).</li>
+      <li>In the <strong>"Commit changes"</strong> section at the bottom of the page, type a short description of what you did (example: "Completed assignment" or "Added styling and images").</li>
+      <li>Click the green <strong>"Commit changes"</strong> button.</li>
+    </ol>
+
+    <div class="callout-blue" role="note">
+      <strong>Upload tip:</strong>
+      <p style="margin-top:0.5rem;">When uploading updated files, GitHub will automatically replace old versions with your new ones. Make sure you upload <strong>all</strong> of your project files — not just the ones you changed — so nothing gets out of sync. It is safer to upload everything each time.</p>
+    </div>
+
+    <div class="callout" role="note">
+      <strong>Save your work often.</strong>
+      <p style="margin-top:0.5rem;">Do not wait until the last minute to upload. Upload your files to GitHub regularly throughout the project. This protects your work in case something happens to your computer, and it lets the professor see your progress.</p>
+    </div>
+
+    <!-- =============== VERIFYING YOUR UPLOAD =============== -->
+    <h2>Verify Your Upload</h2>
+    <p>After uploading, always double-check that everything looks correct:</p>
+    <ol>
+      <li>Go back to your repository's main page on GitHub.</li>
+      <li>Confirm that you can see all your files listed (HTML, CSS, images, media, etc.).</li>
+      <li>Click on your <code>index.html</code> (or main file) to verify it contains your latest code — not the original template.</li>
+      <li>Check that your images folder contains the images you added.</li>
+    </ol>
+    <p>If something looks wrong or files are missing, simply repeat the upload process. Uploading again will overwrite the old versions.</p>
+
+    <!-- =============== COMMON ISSUES =============== -->
+    <h2>Common Issues and Fixes</h2>
+
+    <h3>I cannot find my repository</h3>
+    <p>Go to <a href="https://github.com/">github.com</a>, sign in, and look in the left sidebar under <strong>"Repositories"</strong>. Your assignment repo should appear there. You can also search for it using the search bar at the top of the page.</p>
+
+    <h3>I accidentally uploaded the wrong files</h3>
+    <p>No problem — just upload the correct files again. GitHub will overwrite the previous versions. Your most recent upload is always what the professor sees.</p>
+
+    <h3>My folder structure looks wrong after extracting</h3>
+    <p>If you see a folder inside a folder (like <code>assignment-name &gt; assignment-name &gt; files</code>), open the inner folder, select everything inside it, cut or copy it, go up one level, and paste. Then delete the now-empty inner folder. When you open the project in VS Code, your files should appear directly in the sidebar — not inside a nested folder.</p>
+
+    <h3>GitHub says my file is too large</h3>
+    <p>GitHub has a file size limit of approximately <strong>25 MB</strong> per file. If you have a video or large image that exceeds this limit, consider compressing it or hosting it externally (such as uploading a video to YouTube as unlisted and embedding it with an <code>&lt;iframe&gt;</code>).</p>
+
+    <h3>I see a 404 error when clicking the assignment link</h3>
+    <p>Make sure you are signed in to your GitHub account. If you are signed in and still see an error, try opening the link in a different browser or clearing your browser cache.</p>
+
+    <!-- =============== QUICK REFERENCE =============== -->
+    <h2>Quick Reference — Your Workflow</h2>
+    <ol>
+      <li><strong>Accept</strong> the assignment using the GitHub Classroom link.</li>
+      <li><strong>Download</strong> the ZIP from your repository (green "Code" button → "Download ZIP").</li>
+      <li><strong>Extract</strong> the ZIP and move the folder to Documents or Desktop.</li>
+      <li><strong>Open</strong> the folder in Visual Studio Code and do your work.</li>
+      <li><strong>Upload</strong> your files back to GitHub ("Add file" → "Upload files" → drag and drop → "Commit changes").</li>
+      <li><strong>Verify</strong> your files appear correctly on GitHub.</li>
+      <li><strong>Submit</strong> your GitHub repository URL in Canvas.</li>
+    </ol>
+
+    <div class="callout-green" role="note">
+      <strong>You have got this.</strong>
+      <p style="margin-top:0.5rem;">GitHub Classroom takes the complicated parts of version control and simplifies them down to "download, work, upload." Focus on building great work — the tool is here to make your life easier, not harder.</p>
+      <p><em>— Dr. G, Assistant Professor, IET Department</em></p>
+    </div>
+
+  </main>
+
+  <footer>
+    <p>ITE 270 — Dr. G, Assistant Professor, IET Department</p>
+  </footer>
+
+</body>
+</html>
